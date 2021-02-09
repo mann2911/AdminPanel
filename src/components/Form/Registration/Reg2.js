@@ -148,8 +148,7 @@ class Reg2 extends Component{
         localStorage.removeItem('Reg2');
         localStorage.removeItem('info');
       
-        // this.setState({addData:eduinfo});
-        // localStorage.setItem('Educational info',JSON.stringify(eduinfo));
+      
         this.props.history.push('/login');
       }
 
