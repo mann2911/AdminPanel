@@ -22,6 +22,7 @@ class Reg2 extends Component{
               },
               percent:{
                 type:'input',
+                
                 config:{
                   placeholder:'Percentage/CGPA',
                   name:'percent',
@@ -37,11 +38,13 @@ class Reg2 extends Component{
               },
               course:{
                 type:'input',
+                
                 config:{
                   placeholder:'Course/Stream',
                   name:'course',
                 },
                 value:'',
+
                 valid:false,
                 touched:false,
                 validation:{
@@ -51,6 +54,7 @@ class Reg2 extends Component{
               },
               sdate:{
                 type:'date',
+                label:'Starting date',
                 config:{
                   placeholder:'Starting date',
                   name:'sdate',
@@ -65,6 +69,7 @@ class Reg2 extends Component{
               },
               edate:{
                 type:'date',
+                label:'Ending date',
                 config:{
                   placeholder:'Course/Stream',
                   name:'edate',
@@ -73,7 +78,9 @@ class Reg2 extends Component{
                 valid:false,
                 touched:false,
                 validation:{
-                  required:true,                 
+                  required:true,
+                  checkDate:true
+                 
                 }
               }
               
@@ -105,6 +112,20 @@ class Reg2 extends Component{
         let pattern=/[0-9].[0-9]$/;
         isValid =  pattern.test(value) && isValid
       }
+      if(rules.checkDate){
+        if(value && this.state.form2.sdate)
+        {
+            if(value < this.state.form2.sdate.value){
+                alert( 'End date should be greater than start date..');
+
+                isValid=false;
+            }
+            else{
+
+            }
+
+        }
+      }
 
       return isValid; 
     }  
@@ -131,25 +152,26 @@ class Reg2 extends Component{
       }
 
       submitted=(e)=>{
-
-        e.preventDefault();
+      this.addMore();
+       e.preventDefault();
          let reg1=JSON.parse(localStorage.getItem('info'));
         let reg2=JSON.parse(localStorage.getItem('Reg2'));
+       
         let userInfos=JSON.parse(localStorage.getItem('userInfo'));
-        let userInfo=[];
-        userInfo=userInfos;
-        userInfo.push({Reg1:reg1,Reg2:reg2});
-      
-        localStorage.setItem('userInfo', JSON.stringify(userInfo));
-        console.log("reg2"+reg2);
-        let m1=reg2[0];
-        let m2=m1["course"];
-        console.log("m2"+m2);
+        
+        
+        if (userInfos) {
+          userInfos.push({ Reg1: reg1, Reg2: reg2 });
+          localStorage.setItem('userInfo', JSON.stringify(userInfos));
+      } else {
+          localStorage.setItem('userInfo', JSON.stringify([{ Reg1: reg1, Reg2: reg2 }]));
+      }
         localStorage.removeItem('Reg2');
         localStorage.removeItem('info');
       
-      
+        
         this.props.history.push('/login');
+        
       }
 
       previous=(props)=>{
@@ -157,18 +179,20 @@ class Reg2 extends Component{
       
       }
       addMore=()=>{
-        
+            
+        let formData = {}
+        for (let formElement in this.state.form2) {
+            formData[formElement] = this.state.form2[formElement].value;
+        }
                 
-        const updatedForm2 = {
+        let updatedForm2 = {
          ...this.state.form2
         }
         
-        const addCopyData = [
+        let addCopyData = [
           ...this.state.addData
        ]
-      
-       addCopyData.push(updatedForm2);
-       console.log("reg 2 add more is call and"+addCopyData);
+       addCopyData.push(formData);
       localStorage.setItem('Reg2', JSON.stringify(addCopyData))
         
                
@@ -208,6 +232,7 @@ class Reg2 extends Component{
                 shouldvalidate={elem.info.validation}
                 touched={elem.info.touched}
                 changed={(event)=>this.onchangeHandler(event,elem.id)}
+                label={elem.info.label}
                />
             ))}
             <button onClick={this.previous}>Previous</button>

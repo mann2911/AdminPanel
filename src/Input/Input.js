@@ -1,7 +1,7 @@
 import React from 'react';
 import  './Input.css';
 const input=(props)=>{
-
+    
   let validdata= null;  
   const inputClass=["InputElement"];   
   if(props.valid && props.shouldvalidate && props.touched) {     
@@ -40,8 +40,7 @@ const input=(props)=>{
     }
     return(
         <div>
-            
-        {elemType}
+                     <label className="label">{props.label}</label>{elemType}
         {validdata}
         </div>
     )

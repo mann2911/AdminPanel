@@ -64,6 +64,7 @@ class Reg1 extends Component{
       },
       gender:{
         type:'select',
+        label:'Gender',
         config:{
          options:[
            {value:'Male', display:'Male'},
@@ -249,7 +250,8 @@ class Reg1 extends Component{
           shouldvalidate={elem.para.validation}
           touched={elem.para.touched}
           changed={(event)=>this.onchangeHandler(event,elem.id)}       
-           />         
+          label={elem.para.label}/>         
+
             </div>
       ))}   
 
