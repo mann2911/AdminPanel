@@ -72,7 +72,8 @@ class edit extends Component{
                 valid:false,
                 touched:false,
                 validation:{
-                  required:true,                 
+                  required:true,
+                  checkDate:true                 
                 }
               }
               
@@ -103,6 +104,21 @@ class edit extends Component{
           let pattern=/[0-9].[0-9]$/;
           isValid =  pattern.test(value) && isValid
         }
+        
+      if(rules.checkDate){
+        if(value && this.state.form2.sdate)
+        {
+            if(value < this.state.form2.sdate.value){
+                alert( 'End date should be greater than start date..');
+
+                isValid=false;
+            }
+            else{
+
+            }
+
+        }
+      }
   
         return isValid; 
       }  
@@ -149,7 +165,7 @@ class edit extends Component{
           } 
 
     submitted=()=>{
-        alert("submit called");
+        //alert("submit called");
         let userInfo=JSON.parse(localStorage.getItem('userInfo'));
         let userId=localStorage.getItem('activeUserNumber');
         let info=userInfo[userId];
@@ -157,16 +173,16 @@ class edit extends Component{
         let d2=d1[this.state.id];
 
         
-        d2['sclname'].value=this.state.form2['sclname'].value;
-        d2['course'].value=this.state.form2['course'].value;
-        d2['percent'].value=this.state.form2['percent'].value;
-        d2['sdate'].value=this.state.form2['sdate'].value;
-        d2['edate'].value=this.state.form2['edate'].value;
+        d2['sclname']=this.state.form2['sclname'].value;
+        d2['course']=this.state.form2['course'].value;
+        d2['percent']=this.state.form2['percent'].value;
+        d2['sdate']=this.state.form2['sdate'].value;
+        d2['edate']=this.state.form2['edate'].value;
 
       
 
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
-
+        localStorage.removeItem('editDatas')
         this.props.history.push('/loggedin/usereducation');
     }      
 

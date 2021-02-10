@@ -60,7 +60,7 @@ class Login extends Component{
       }
       match=(e)=>{
         e.preventDefault();
-        // const data=localStorage.getItem([]);
+        
         const info=JSON.parse(localStorage.getItem('userInfo'));
         
         const fnamefromstate=this.state.forms.firstname.value
@@ -79,7 +79,7 @@ class Login extends Component{
            localStorage.setItem('activeUserFname', fname);
            localStorage.setItem('activeUserLname', lname);
            localStorage.setItem('activeUserNumber',x);
-           console.log('x'+x);
+           
            break;
         }
         else{

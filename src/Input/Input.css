@@ -21,5 +21,10 @@
     background-color: #FDA49A;
 }
 .label{
-    font-size: medium;
+   
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 5px; 
 }

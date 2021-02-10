@@ -9,6 +9,7 @@ import {Route,Switch} from 'react-router-dom';
 import LoggedIn from './Login/LoggedIn/LoggedIn';
 import forgetPassword from '../forgetPassword/forgetPassword';
 import Edit from '../../components/Form/Login/LoggedIn/editDelete/edit';
+import DeleteData from '../../components/Form/Login/LoggedIn/editDelete/delete';
 class Form extends Component{
     render(){
         return(
@@ -22,6 +23,7 @@ class Form extends Component{
             <Route  path='/Registration1'  component={Reg1} />
             <Route  path='/forgetPassword'  component={forgetPassword} />
             <Route  path='/edit'  component={Edit} />
+            <Route  path='/delete'  component={DeleteData} />
             <Route  path='/'  component={homePage} />
             </Switch>
             </div>
